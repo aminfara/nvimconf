@@ -12,6 +12,7 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'chriskempson/base16-vim'
+Plug 'neomake/neomake'
 call plug#end()
 
 "===============================================================================
@@ -157,3 +158,18 @@ set ruler                             " show cursor position
 set showcmd                           " show partial command
 set visualbell                        " beep visually
 
+
+"===============================================================================
+" Plugins
+"===============================================================================
+
+" Neomake
+"----------------------------------------
+let g:neomake_open_list = 5
+
+augroup nvimconf_neomake
+  autocmd!
+  autocmd! BufNewFile,BufRead,BufWritePost * Neomake
+augroup END
+
+" vim:set filetype=vim expandtab shiftwidth=2:
