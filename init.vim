@@ -11,6 +11,7 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.local/share/nvim/plugged')
+Plug 'chriskempson/base16-vim'
 call plug#end()
 
 "===============================================================================
