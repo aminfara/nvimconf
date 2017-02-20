@@ -1,3 +1,8 @@
+if executable('pyenv')
+  let g:python_host_prog = systemlist('pyenv which python2')[0]
+  let g:python3_host_prog = systemlist('pyenv which python3')[0]
+endif
+
 "===============================================================================
 " Plugin framework
 "===============================================================================
