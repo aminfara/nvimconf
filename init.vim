@@ -15,9 +15,20 @@ if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
   autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Make sure you use single quotes
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'neomake/neomake'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'Shougo/context_filetype.vim'
+Plug 'Shougo/neoinclude.vim'
+Plug 'fishbullet/deoplete-ruby'
+Plug 'Shougo/deoplete-rct'
+Plug 'zchee/deoplete-jedi'
 call plug#end()
 
 "===============================================================================
@@ -68,6 +79,7 @@ set ttimeoutlen=100
 ""
 " Miscellaneous
 "
+set completeopt+=noinsert             " causes deoplete to select first choice
 set hidden                            " enable multiple modified buffer
 set omnifunc=syntaxcomplete#Complete  " turn on builtin auto-completion
 set switchbuf=useopen,usetab,newtab   " switching buffers behavior
@@ -170,11 +182,60 @@ set visualbell                        " beep visually
 
 " Neomake
 "----------------------------------------
-let g:neomake_open_list = 5
-
 augroup nvimconf_neomake
   autocmd!
   autocmd! BufNewFile,BufRead,BufWritePost * Neomake
 augroup END
+
+
+" deoplete
+"----------------------------------------
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+" Use smartcase.
+let g:deoplete#enable_smart_case = 1
+
+let g:deoplete#omni#input_patterns = {}
+let g:deoplete#omni#input_patterns.ruby = ['[^. *\t]\.\w*', '[a-zA-Z_]\w*::']
+
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.ruby = [
+  \ 'rubycomplete#Complete'
+\]
+
+
+"===============================================================================
+" Languages
+"===============================================================================
+
+" Ruby
+"----------------------------------------
+augroup myvim_ruby
+  autocmd!
+  autocmd FileType ruby,eruby setlocal tabstop=2|set shiftwidth=2
+  autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
+  autocmd FileType ruby,eruby let g:rubycomplete_buffer_loading = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_rails = 1
+  autocmd FileType ruby,eruby let g:rubycomplete_classes_in_global = 1
+augroup END
+
+
+"===============================================================================
+" Key mappings
+"===============================================================================
+
+
+" deoplete
+"----------------------------------------
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
+
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function() abort
+  return pumvisible() ? deoplete#close_popup() : "\<CR>"
+endfunction
+
 
 " vim:set filetype=vim expandtab shiftwidth=2:
