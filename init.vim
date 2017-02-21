@@ -50,6 +50,9 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
 Plug 'junegunn/fzf.vim'
 
+" Directory tree
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
+
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -268,6 +271,11 @@ let g:airline_symbols.branch    = '⎇' "⮑, ➔, ➥, ⤴
 let g:airline_symbols.whitespace = 'Ξ'
 
 
+" NERDTree
+"----------------------------------------
+let NERDTreeShowHidden=1
+
+
 " Easymotion
 "----------------------------------------
 let g:EasyMotion_smartcase = 1
@@ -338,6 +346,11 @@ nnoremap <silent> <Leader>fm :Maps<CR>
 nnoremap <silent> <Leader>fs :Ag<CR>
 nnoremap <silent> <Leader>ft :Tags<CR>
 nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
+
+
+" NerdTree
+"----------------------------------------
+map <silent> <leader>n :NERDTreeToggle<CR>
 
 
 " vim:set filetype=vim expandtab shiftwidth=2:
