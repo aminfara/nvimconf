@@ -21,14 +21,23 @@ function! DoRemote(arg)
 endfunction
 
 call plug#begin('~/.local/share/nvim/plugged')
+" Colorscheme
 Plug 'chriskempson/base16-vim'
+
+" Linting and building
 Plug 'neomake/neomake'
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+
+" Snippets
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" Auto-completion
 Plug 'Shougo/context_filetype.vim'
 Plug 'Shougo/neoinclude.vim'
 Plug 'fishbullet/deoplete-ruby'
 Plug 'Shougo/deoplete-rct'
 Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 call plug#end()
 
 "===============================================================================
@@ -203,6 +212,20 @@ let g:deoplete#omni#functions.ruby = [
   \ 'rubycomplete#Complete'
 \]
 
+call deoplete#custom#set('buffer', 'rank', 9999)
+call deoplete#custom#set('ultisnips', 'rank', 9998)
+
+
+" UltiSnips
+"----------------------------------------
+" Trigger configuration. Removed to mix it with deoplete.
+let g:UltiSnipsExpandTrigger="<nop>"
+let g:UltiSnipsJumpForwardTrigger="<nop>"
+let g:UltiSnipsJumpBackwardTrigger="<nop>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
+
 
 "===============================================================================
 " Languages
@@ -220,22 +243,33 @@ augroup myvim_ruby
 augroup END
 
 
+" Python
+"----------------------------------------
+" Auto completion is done by deoplete jedi
+
 "===============================================================================
 " Key mappings
 "===============================================================================
 
 
-" deoplete
+" Autocomplete and Snippets
 "----------------------------------------
+function! s:expand_snippet_or_key(key) abort
+  let g:ulti_expand_or_jump_res = 0
+  let snippet = UltiSnips#ExpandSnippetOrJump()
+  return (g:ulti_expand_or_jump_res > 0) ? snippet : a:key
+endfunction
+
 " <C-h>, <BS>: close popup and delete backword char.
 inoremap <expr><C-h> deoplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS>  deoplete#smart_close_popup()."\<C-h>"
 
-" <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function() abort
-  return pumvisible() ? deoplete#close_popup() : "\<CR>"
-endfunction
+inoremap <silent> <expr> <CR> pumvisible() ? "<C-y><C-R>=UltiSnips#ExpandSnippet()<CR>" : "\<CR>"
+
+inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-n>" : "<C-R>=<SID>expand_snippet_or_key(\"\t\")<CR>"
+snoremap <silent> <TAB> <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
+inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "<C-R>=UltiSnips#JumpBackwards()<CR>"
+snoremap <silent> <S-TAB> <Esc>:call UltiSnips#JumpBackwards()<CR>
 
 
 " vim:set filetype=vim expandtab shiftwidth=2:
