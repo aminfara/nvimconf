@@ -42,9 +42,13 @@ Plug 'Shougo/deoplete-rct'
 Plug 'zchee/deoplete-jedi'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 
-"Status bar
+" Status bar
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+
+" Fuzzy finding
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all --no-update-rc' }
+Plug 'junegunn/fzf.vim'
 
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
@@ -321,6 +325,19 @@ inoremap <silent> <expr> <TAB> pumvisible() ? "\<C-n>" : "<C-R>=<SID>expand_snip
 snoremap <silent> <TAB> <Esc>:call UltiSnips#ExpandSnippetOrJump()<CR>
 inoremap <silent> <expr> <S-TAB> pumvisible() ? "\<C-p>" : "<C-R>=UltiSnips#JumpBackwards()<CR>"
 snoremap <silent> <S-TAB> <Esc>:call UltiSnips#JumpBackwards()<CR>
+
+
+" FZF
+"----------------------------------------
+nnoremap <silent> <Leader>fb :Buffers<CR>
+nnoremap <silent> <Leader>fc :Commands<CR>
+nnoremap <silent> <Leader>ff :Files<CR>
+nnoremap <silent> <Leader>fh :History<CR>
+nnoremap <silent> <Leader>fl :Lines<CR>
+nnoremap <silent> <Leader>fm :Maps<CR>
+nnoremap <silent> <Leader>fs :Ag<CR>
+nnoremap <silent> <Leader>ft :Tags<CR>
+nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
 
 
 " vim:set filetype=vim expandtab shiftwidth=2:
