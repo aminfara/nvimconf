@@ -53,6 +53,10 @@ Plug 'junegunn/fzf.vim'
 " Directory tree
 Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
 
+" Git plugins
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+
 Plug 'easymotion/vim-easymotion'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
@@ -351,6 +355,16 @@ nnoremap <silent> <Leader>fw :Ag <C-R><C-W><CR>
 " NerdTree
 "----------------------------------------
 map <silent> <leader>n :NERDTreeToggle<CR>
+
+
+" Fugitive
+"----------------------------------------
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>ge :Gedit<CR>
+nnoremap <silent> <leader>gl :Git log --stat --graph --decorate --all<CR>
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gh :Gsplit<CR>
+nnoremap <silent> <leader>gv :Gvsplit<CR>
 
 
 " vim:set filetype=vim expandtab shiftwidth=2:
