@@ -46,6 +46,8 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+Plug 'easymotion/vim-easymotion'
+
 call plug#end()
 
 "===============================================================================
@@ -260,6 +262,11 @@ let g:airline_symbols.branch    = '⎇' "⮑, ➔, ➥, ⤴
 let g:airline_symbols.whitespace = 'Ξ'
 
 
+" Easymotion
+"----------------------------------------
+let g:EasyMotion_smartcase = 1
+
+
 "===============================================================================
 " Languages
 "===============================================================================
@@ -283,6 +290,15 @@ augroup END
 "===============================================================================
 " Key mappings
 "===============================================================================
+
+let g:mapleader = "\<Space>"
+let g:maplocalleader = "\\"
+
+
+" Easymotion
+"----------------------------------------
+nmap <Leader>s <Plug>(easymotion-s2)
+vmap <Leader>s <Plug>(easymotion-s2)
 
 
 " Autocomplete and Snippets
