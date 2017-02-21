@@ -73,6 +73,12 @@ call plug#end()
 " General configurations
 "===============================================================================
 
+augroup nvimconf_general
+  autocmd!
+  " remove trailing whitespace on save
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
 " Behavioral
 "----------------------------------------
 
@@ -222,7 +228,7 @@ set visualbell                        " beep visually
 "----------------------------------------
 augroup nvimconf_neomake
   autocmd!
-  autocmd! BufNewFile,BufRead,BufWritePost * Neomake
+  autocmd BufNewFile,BufRead,BufWritePost * Neomake
 augroup END
 
 
@@ -289,7 +295,7 @@ let g:indent_guides_guide_size = 1
 let g:indent_guides_color_change_percent = 5
 let g:indent_guides_auto_colors = 0
 
-augroup multi_indent_guides
+augroup nvimconf_indent_guides
   autocmd!
   autocmd VimEnter,Colorscheme * :highlight IndentGuidesOdd  ctermbg=18
   autocmd VimEnter,Colorscheme * :highlight IndentGuidesEven ctermbg=19
@@ -312,7 +318,7 @@ let g:EasyMotion_smartcase = 1
 
 " Ruby
 "----------------------------------------
-augroup myvim_ruby
+augroup nvimconf_ruby
   autocmd!
   autocmd FileType ruby,eruby setlocal tabstop=2|set shiftwidth=2
   autocmd FileType ruby,eruby setlocal omnifunc=rubycomplete#Complete
@@ -332,6 +338,43 @@ augroup END
 
 let g:mapleader = "\<Space>"
 let g:maplocalleader = "\\"
+
+
+imap jk <Esc>
+
+vnoremap < <gv
+vnoremap > >gv
+
+" better navigation of wrapped lines
+nnoremap j gj
+nnoremap k gk
+
+noremap <silent> <C-h> :wincmd h<CR>
+noremap <silent> <C-j> :wincmd j<CR>
+noremap <silent> <C-k> :wincmd k<CR>
+noremap <silent> <C-l> :wincmd l<CR>
+noremap <silent> <leader><left>  :wincmd h<CR>
+noremap <silent> <leader><down>  :wincmd j<CR>
+noremap <silent> <leader><up>    :wincmd k<CR>
+noremap <silent> <leader><right> :wincmd l<CR>
+
+" <F2> for toggling paste mode
+nnoremap <silent> <F2> :<C-u>set paste!<CR>
+silent set pastetoggle=<F2>
+
+nnoremap <silent> <F3> :<C-u>nohlsearch<CR>
+nnoremap <silent> <F4> :<C-u>set spell!<CR>
+
+
+" Help related
+"----------------------------------------
+cabbrev h tab help
+cabbrev help tab help
+
+augroup nvimconf_help
+  autocmd!
+  autocmd FileType help noremap <buffer> q :q<cr>
+augroup END
 
 
 " Easymotion
