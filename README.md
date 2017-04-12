@@ -66,6 +66,7 @@ o | `{action}ic` | Gitgutter inner hunk
 o | `{action}ic` | Gitgutter outer hunk
 i | `<M-n>` | Auto-pairs jump to next closed pairs
 i | `<M-b>` | Auto-pairs toggle
+n | `<leader>t` | TaskList.vim show list of task tags (TODO, FIXEME, BUG, ...)
 
 
 # Development
@@ -91,6 +92,7 @@ i | `<M-b>` | Auto-pairs toggle
 * Smart Indentation - Already in nvim - done
 * Spell-checking - Already in nvim - done
 * Autosave - Already in nvim - done
+* List TODO FIXME BUG ... - done
 * lazy loading
 * Mnemonic shortcuts
 * Tags
