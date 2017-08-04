@@ -68,7 +68,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
 
-Plug 'TaskList.vim'
+Plug 'vim-scripts/TaskList.vim'
 call plug#end()
 
 "===============================================================================
@@ -249,9 +249,10 @@ let g:deoplete#omni#functions.ruby = [
   \ 'rubycomplete#Complete'
 \]
 
-call deoplete#custom#set('buffer', 'rank', 9999)
-call deoplete#custom#set('ultisnips', 'rank', 9998)
-
+if !empty(glob("~/.local/share/nvim/plugged/deoplete.nvim"))
+  call deoplete#custom#set('buffer', 'rank', 9999)
+  call deoplete#custom#set('ultisnips', 'rank', 9998)
+endif
 
 " UltiSnips
 "----------------------------------------
