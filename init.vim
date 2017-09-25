@@ -233,6 +233,8 @@ augroup nvimconf_neomake
   autocmd BufNewFile,BufRead,BufWritePost * Neomake
 augroup END
 
+let g:neomake_python_enabled_makers = ['flake8']
+let g:neomake_python_flake8_args='--max-line-length=120'
 
 " deoplete
 "----------------------------------------
